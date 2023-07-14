@@ -6,14 +6,14 @@ class Checker:
                            'rt').read().lower().split('\n')
         self.index = list()
 
-    def checkfile(self, file):
+    def check_word_in_file(self, file):
         file = open(file).read().lower().split(' ')
         for word in self.words:
             for item in file:
-                if item.startswith(word):
+                if item.startswith(word) or item == word:
                     self.index.append(word)
 
-    def checkfile2(self, file):
+    def check_phrase_in_file(self, file):
         file1 = open(file).read().lower()
         print(file)
         for word in self.words2:
@@ -21,11 +21,12 @@ class Checker:
                 self.index.append(word)
 
     def print_words(self):
+        self.index = sorted(set(self.index))
         print("Words found:")
-        for key in sorted(set(self.index)):
+        for key in self.index:
             print(f"{key}")
 
     def check(self, file):
-        self.checkfile(file)
-        self.checkfile2(file)
+        self.check_word_in_file(file)
+        self.check_phrase_in_file(file)
         self.print_words()
